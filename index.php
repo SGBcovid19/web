@@ -1,42 +1,5 @@
 <?php
 require "config.php";
-
-function penyebut($nilai) {
-	$nilai = abs($nilai);
-	$huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
-	$temp = "";
-	if ($nilai < 12) {
-		$temp = " ". $huruf[$nilai];
-	} else if ($nilai <20) {
-		$temp = penyebut($nilai - 10). " belas";
-	} else if ($nilai < 100) {
-		$temp = penyebut($nilai/10)." puluh". penyebut($nilai % 10);
-	} else if ($nilai < 200) {
-		$temp = " seratus" . penyebut($nilai - 100);
-	} else if ($nilai < 1000) {
-		$temp = penyebut($nilai/100) . " ratus" . penyebut($nilai % 100);
-	} else if ($nilai < 2000) {
-		$temp = " seribu" . penyebut($nilai - 1000);
-	} else if ($nilai < 1000000) {
-		$temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
-	} else if ($nilai < 1000000000) {
-		$temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
-	} else if ($nilai < 1000000000000) {
-		$temp = penyebut($nilai/1000000000) . " milyar" . penyebut(fmod($nilai,1000000000));
-	} else if ($nilai < 1000000000000000) {
-		$temp = penyebut($nilai/1000000000000) . " trilyun" . penyebut(fmod($nilai,1000000000000));
-	}     
-	return $temp;
-}
-
-function terbilang($nilai) {
-	if($nilai<0) {
-		$hasil = "minus ". trim(penyebut($nilai));
-	} else {
-		$hasil = trim(penyebut($nilai));
-	}     		
-	return $hasil;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,9 +31,6 @@ function terbilang($nilai) {
 		<meta name="coverage" content="Worldwide">
 		<meta name="distribution" content="Global">
 		<meta name="rating" content="General">
-		<meta http-equiv="Expires" content="0">
-		<meta http-equiv="Pragma" content="no-cache">
-		<meta http-equiv="Cache-Control" content="no-cache">
 		<link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
 		<link rel="stylesheet" href="vendors/owl.carousel/css/owl.carousel.css">
 		<link rel="stylesheet" href="vendors/owl.carousel/css/owl.theme.default.min.css">
@@ -129,7 +89,7 @@ function terbilang($nilai) {
 											untuk membantu Selamatkan Nyawa Sesama!<br>
 											Gerakan ini dibuat bekerja sama dengan Yayasan Gerakan Indonesia Sadar Bencana (GRAISENA)
 										</p>
-										<h1>Rp.<span class="jumdos"><?=(99.9/100)*$jumlahDonasi;?></span>,-</h1>
+										<h1>Rp.<span class="jumdos">0</span>,-</h1>
 										<font size="3">(<?=ucfirst(terbilang($jumlahDonasi))." Rupiah";?>)</font><br><br>
 										<small>Last update : <?=$updateWaktu;?></small><br>
 										<a href="#donasi" class="btn btn-secondary mt-3">Donasi</a>
@@ -388,7 +348,7 @@ kerumunan.</p>
 						<div class="col-sm-7" data-aos="fade-up" data-aos-offset="-500">
 							<h3 class="font-weight-medium text-dark mt-5 mt-lg-0">Jumlah Donasi</h3>
 							<h5 class="text-dark mb-5">Jumlah donasi OVO, GO-Pay, Dana, Jenius BTPN yang terkumpul</h5>
-							<h1>Rp.<span class="jumdos"><?=(99.9/100)*$jumlahDonasi;?></span>,-</h1>
+							<h1>Rp.<span class="jumdos">0</span>,-</h1>
 							<font size="3">(<?=ucfirst(terbilang($jumlahDonasi))." Rupiah";?>)</font><br><br>
 							<small>Last update : <?=$updateWaktu;?></small>
 						</div>
@@ -414,9 +374,9 @@ kerumunan.</p>
 		<script src="vendors/jquery-flipster/js/jquery.flipster.min.js"></script>
 		<script>(function($){'use strict';$(function(){$('.owl-carousel-projects').owlCarousel({loop:!0,stagePadding:100,margin:20,nav:!1,responsive:{0:{items:2},600:{items:3},1000:{items:4}}})
 var wWidth=$(window).width();var menuWidth=$(".navbar-collapse").width();$(".navbar-toggler").click(function(){$('.collapsing').toggleClass('show');$('body').addClass("sidebar-overlay")});$("#mobile-menu-overlay, .close-menu, .nav-link").click(function(){$('.collapse').toggleClass('show');$('body').removeClass("sidebar-overlay")});$("a.nav-link").on('click',function(event){if(this.hash!==""){event.preventDefault();var hash=this.hash;$('html, body').animate({scrollTop:$(hash).offset().top},800,function(){window.location.hash=hash})}});AOS.init({offset:0,duration:800,easing:'ease-in-quad',delay:100,});$("#testimonial-flipster").flipster({style:'coverflow',spacing:-.9,nav:!1,loop:!0,buttons:!1,});$('.flipster-custom-nav-link').click(function(){var navlinkSelected=parseInt(this.title);$('.flipster-custom-nav-link').removeClass("active");$(this).addClass("active");$("#testimonial-flipster").flipster('jump',navlinkSelected)});$('#toggle-switch').click(function(){if($('#toggle-switch').is(':checked')){$('.monthly').addClass("text-active");$('.yearly').removeClass("text-active");$("#toggle-switch").attr("checked","checked")}else{$('.monthly').removeClass("text-active");$('.yearly').addClass("text-active");$("#toggle-switch").removeAttr("checked")}});function formatNumber(num){return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g,'$1,')}
-var jumDonVal=<?=$jumlahDonasi;?>;var isd=parseInt($('.jumdos').text());var timd;function runDon(){timd=setInterval(function(){if(isd>=jumDonVal){clearInterval(timd);return}
+var jumDonVal=<?=$jumlahDonasi;?>;var isd=<?=$jumlahDonasi-$speed;?>;var timd;function runDon(){timd=setInterval(function(){if(isd>=jumDonVal){clearInterval(timd);return}
 $('.jumdos').text(formatNumber(++isd))},1)}
-runDon();setInterval(function(){$.getJSON('https://services5.arcgis.com/VS6HdKS0VfIhv8Ct/ArcGIS/rest/services/Statistik_Perkembangan_COVID19_Indonesia/FeatureServer/0/query?where=Jumlah_Kasus_Kumulatif%20IS%20NOT%20NULL%20AND%20Jumlah_Pasien_Sembuh%20IS%20NOT%20NULL%20AND%20Jumlah_Pasien_Meninggal%20IS%20NOT%20NULL&outFields=*&orderByFields=Tanggal%20desc&resultRecordCount=2&f=json&fbclid=IwAR0WtY3HaDB_Hx6qjcY8Q2_zj_CTii-x43W3_yleVGpBz6DCrKx8hY5yRuM',function(data){var maxScVal,maxfPVal,maxtMVal,maxbPVal;maxScVal=data.features[0].attributes.Jumlah_Kasus_Kumulatif;maxfPVal=data.features[0].attributes.Jumlah_pasien_dalam_perawatan;maxtMVal=data.features[0].attributes.Jumlah_Pasien_Meninggal;maxbPVal=data.features[0].attributes.Jumlah_Pasien_Sembuh;var isc=parseInt($('.scVal').text());var tim;function run(){tim=setInterval(function(){if(isc>=maxScVal){clearInterval(tim);return}
+runDon();function upd(){$.getJSON('https://services5.arcgis.com/VS6HdKS0VfIhv8Ct/ArcGIS/rest/services/Statistik_Perkembangan_COVID19_Indonesia/FeatureServer/0/query?where=Jumlah_Kasus_Kumulatif%20IS%20NOT%20NULL%20AND%20Jumlah_Pasien_Sembuh%20IS%20NOT%20NULL%20AND%20Jumlah_Pasien_Meninggal%20IS%20NOT%20NULL&outFields=*&orderByFields=Tanggal%20desc&resultRecordCount=2&f=json&fbclid=IwAR0WtY3HaDB_Hx6qjcY8Q2_zj_CTii-x43W3_yleVGpBz6DCrKx8hY5yRuM',function(covid){var maxScVal,maxfPVal,maxtMVal,maxbPVal;maxScVal=covid.features[0].attributes.Jumlah_Kasus_Kumulatif;maxfPVal=covid.features[0].attributes.Jumlah_pasien_dalam_perawatan;maxtMVal=covid.features[0].attributes.Jumlah_Pasien_Meninggal;maxbPVal=covid.features[0].attributes.Jumlah_Pasien_Sembuh;var isc=parseInt($('.scVal').text());var tim;function run(){tim=setInterval(function(){if(isc>=maxScVal){clearInterval(tim);return}
 $('.scVal').text(++isc)},1)}
 run();var ifP=parseInt($('.fpVal').text());var timfP;function runfP(){timfP=setInterval(function(){if(ifP>=maxfPVal){clearInterval(timfP);return}
 $('.fpVal').text(++ifP)},1)}
@@ -424,6 +384,7 @@ runfP();var itm=parseInt($('.tMVal').text());var timtM;function runtM(){timtM=se
 $('.tMVal').text(++itm)},1)}
 runtM();var ibP=parseInt($('.bPVal').text());var timbP;function runbP(){timbP=setInterval(function(){if(ibP>=maxbPVal){clearInterval(timbP);return}
 $('.bPVal').text(++ibP)},1)}
-runbP()})},1000)})})(jQuery)</script>
+runbP()})}
+upd();setInterval(function(){upd()},300000)})})(jQuery)</script>
 	</body>
 </html>
