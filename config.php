@@ -1,7 +1,9 @@
 <?php
-$jumlahDonasi 	= "25170990";
-$updateWaktu 	= "26/03/2020 22:03 WIB";
+$jumlahDonasi 	= "51163882";
+$updateWaktu 	= "5/04/2020 0:00 WIB";
 $speed          = 500; //Semakin kecil semakin cepat
+$mulai 			= date('2020-03-26'); // tanggal mulai
+$akhir 			= date('2020-04-04'); // tanggal berakhir
 
 //jangan edit 
 function penyebut($nilai) {
@@ -41,3 +43,4 @@ function terbilang($nilai) {
 	return $hasil;
 }
 ?>
+

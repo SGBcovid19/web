@@ -1,0 +1,16 @@
+RewriteEngine On
+Options -Indexes
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+ErrorDocument 400 /
+ErrorDocument 403 /
+ErrorDocument 404 /
+ErrorDocument 500 /
+
+ServerSignature Off

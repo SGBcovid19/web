@@ -1,5 +1,12 @@
 <?php
+date_default_timezone_set("Asia/Jakarta");
 require "config.php";
+
+if(strtotime($mulai) <= time() AND strtotime($akhir) >= time()){
+	$statusDonasi = "aktif";
+} else {
+	$statusDonasi = "selesai";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +37,6 @@ require "config.php";
 		<meta name="identifier-URL" content="http://sgbcovid19.com/">
 		<meta name="coverage" content="Worldwide">
 		<meta name="distribution" content="Global">
-		<meta name="rating" content="General">
 		<link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
 		<link rel="stylesheet" href="vendors/owl.carousel/css/owl.carousel.css">
 		<link rel="stylesheet" href="vendors/owl.carousel/css/owl.theme.default.min.css">
@@ -43,13 +49,13 @@ require "config.php";
 		<div id="mobile-menu-overlay"></div>
 		<nav class="navbar navbar-expand-lg fixed-top">
 			<div class="container">
-				<a class="navbar-brand" href="#"><img src="images/logos.png" alt="SGB Lawan Corona"></a>
+				<a class="navbar-brand" href="#"><img src="https://i.ibb.co/gb8TT4s/logos.png" alt="SGB Lawan Corona"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"><i class="mdi mdi-menu"> </i></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 					<div class="d-lg-none d-flex justify-content-between px-4 py-3 align-items-center">
-						<img src="images/logos-black.png" class="logo-mobile-menu" alt="logo">
+						<img src="https://i.ibb.co/KwddSR4/logos-black.png" class="logo-mobile-menu" alt="logo">
 						<a href="javascript:;" class="close-menu"><i class="mdi mdi-close"></i></a>
 					</div>
 					<ul class="navbar-nav ml-auto align-items-center">
@@ -65,9 +71,14 @@ require "config.php";
 						<li class="nav-item">
 							<a class="nav-link" href="#kasus">Kasus</a>
 						</li>
+																		<li class="nav-item">
+							<a class="nav-link" href="#log">Log Aktifitas</a>
+						</li>
+						<?php if($statusDonasi == "aktif"){ ?>
 						<li class="nav-item">
 							<a class="nav-link" href="#donasi">Donasi</a>
 						</li>
+						<?php } ?>
 					</ul>
 				</div>
 			</div>
@@ -85,17 +96,30 @@ require "config.php";
 													Lawan Covid-19
 											</h3>
 										</div>
+										<?php if($statusDonasi == "selesai"){ ?>
+											<p class="mt-3">Terima kasih untuk kalian semua yang telah berdonasi.<br>
+												Untuk saat ini donasi SGB X Graisena Lawan Covid-19 sudah berakhir<br>
+												dan Alhamdulillah kita berhasil mengumpulkan dana sejumlah :
+											</p>
+										<?php } else { ?>
 										<p class="mt-3">Sebuah gerakan yang dibuat oleh komunitas Sharing Gil's Blog
 											untuk membantu Selamatkan Nyawa Sesama!<br>
 											Gerakan ini dibuat bekerja sama dengan Yayasan Gerakan Indonesia Sadar Bencana (GRAISENA)
 										</p>
+										<?php } ?>
 										<h1>Rp.<span class="jumdos">0</span>,-</h1>
-										<font size="3">(<?=ucfirst(terbilang($jumlahDonasi))." Rupiah";?>)</font><br><br>
+										<font size="2.5">(<?=ucfirst(terbilang($jumlahDonasi))." Rupiah";?>)</font><br><br>
+										<?php if($statusDonasi == "aktif"){ ?>
 										<small>Last update : <?=$updateWaktu;?></small><br>
+										<small>Donasi berakhir pada : </small><small id="jangka"></small><br>
 										<a href="#donasi" class="btn btn-secondary mt-3">Donasi</a>
+										<?php } else { ?>
+										<small>Semua hasil donasi yang sudah teman-teman berikan akan kita teruskan 
+										kepada Yayasan GRAISENA sebagai relawan dilapangan. Terima kasih 🙏</small>
+										<?php } ?>
 									</div>
 									<div class="mt-5 mt-lg-0">
-										<img src="images/virus.png" alt="virus" class="img-fluid" data-aos="zoom-in-up">
+										<img src="images/people.png" alt="virus" class="img-fluid" data-aos="zoom-in-up">
 									</div>
 								</div>
 							</div>
@@ -216,7 +240,7 @@ kerumunan.</p>
 							</div>
 						</div>
 						<div class="col-sm-6 text-right" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
-							<img src="images/dokter.png" alt="idea" class="img-fluid">
+							<img src="images/doctor.png" alt="idea" class="img-fluid">
 						</div>
 					</div>
 				</div>
@@ -273,6 +297,7 @@ kerumunan.</p>
 					</div>
 				</div>
 			</section>
+			<?php if($statusDonasi == "aktif"){ ?>
 			<section class="testimonial" id="donasi">
 				<div class="container">
 					<div class="row  mt-md-0 mt-lg-4">
@@ -339,20 +364,46 @@ kerumunan.</p>
 					</div>
 				</div>
 			</section>
+			<?php } ?>
 			<section class="contactus" id="contact">
 				<div class="container">
 					<div class="row mb-5 pb-5">
 						<div class="col-sm-5" data-aos="fade-up" data-aos-offset="-500">
-							<img src="images/totaldonasi.png" alt="contact" class="img-fluid">
+							<img src="images/dompet2.png" alt="contact" class="img-fluid">
 						</div>
 						<div class="col-sm-7" data-aos="fade-up" data-aos-offset="-500">
 							<h3 class="font-weight-medium text-dark mt-5 mt-lg-0">Jumlah Donasi</h3>
 							<h5 class="text-dark mb-5">Jumlah donasi OVO, GO-Pay, Dana, Jenius BTPN yang terkumpul</h5>
 							<h1>Rp.<span class="jumdos">0</span>,-</h1>
 							<font size="3">(<?=ucfirst(terbilang($jumlahDonasi))." Rupiah";?>)</font><br><br>
-							<small>Last update : <?=$updateWaktu;?></small>
+							<?php if($statusDonasi == "aktif"){ ?>
+							<small>Last update : <?=$updateWaktu;?></small><br>
+							<small>Donasi berakhir pada : </small><small id="jangka1"></small>
+							<?php } else { ?>
+							<small>Semua hasil donasi yang sudah teman-teman berikan akan kita teruskan 
+							kepada Yayasan GRAISENA sebagai relawan dilapangan. Terima kasih 🙏</small>
+							<?php } ?>
 						</div>
 					</div>
+				</div>
+			</section>
+			<section class="our-services" id="log">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<h5 class="text-dark">Log Aktifitas</h5>
+							<h3 class="font-weight-medium text-dark mb-5">Kabar terbaru</h3>
+						</div>
+					</div>
+<div class="d-flex justify-content-start mb-3">
+								<img src="images/tick.png" alt="tick" class="mr-3 tick-icon"  >
+								<p class="mb-0">Pencairan dana ke Yayasan Gerakan Indonesia Sadar Bencana (GRAISENA) Sebesar Rp.32,253,019,- <a href="https://sgbcovid19.com/JFB_eReceipt_202003270001@DCB183645.pdf" class="text-black" target="_blank">Bukti</a> ( 27/03/2020 12:30 WIB )</p><br>
+							</div>
+							<div class="d-flex justify-content-start mb-3">
+																<p class="mb-0">Donasi yang belum disalurkan : Rp.15,003,922<br>
+								Donasi yang sudah disalurkan ( period 1 ) : Rp.32,253,019<br>
+								Total Donasi Yang Masuk : Rp.<span class="jumdos">0</span>,-</p>
+							</div>
 				</div>
 			</section>
 		</div>
@@ -361,7 +412,7 @@ kerumunan.</p>
 				<div class="container">
 					<div class="d-flex justify-content-between align-items-center">
 						<div class="d-flex align-items-center">
-							<img src="images/logos.png" alt="logo" class="mr-3">
+							<img src="https://i.ibb.co/gb8TT4s/logos.png" alt="logo" class="mr-3">
 							<p class="mb-0 text-small pt-1">© 2020 <a href="http://sgbcovid19.com/" class="text-white" target="_blank">Sharing Gil's Blog</a>. All rights reserved.</p>
 						</div>
 					</div>
@@ -386,5 +437,6 @@ runtM();var ibP=parseInt($('.bPVal').text());var timbP;function runbP(){timbP=se
 $('.bPVal').text(++ibP)},1)}
 runbP()})}
 upd();setInterval(function(){upd()},300000)})})(jQuery)</script>
+		<script>var countDownDate=new Date("<?=$akhir;?>").getTime();var x=setInterval(function(){var now=new Date().getTime();var distance=countDownDate-now;var days=Math.floor(distance/(1000*60*60*24));var hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));var minutes=Math.floor((distance%(1000*60*60))/(1000*60));var seconds=Math.floor((distance%(1000*60))/1000);document.getElementById("jangka").innerHTML=days+" hari "+hours+" jam "+minutes+" menit "+seconds+" detik ";document.getElementById("jangka1").innerHTML=days+" hari "+hours+" jam "+minutes+" menit "+seconds+" detik ";if(distance<0){clearInterval(x);document.getElementById("jangka").innerHTML="Donasi Berakhir";document.getElementById("jangka1").innerHTML="Donasi Berakhir"}},1000)</script>
 	</body>
 </html>
